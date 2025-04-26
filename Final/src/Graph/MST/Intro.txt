@@ -1,0 +1,3 @@
+A spanning tree of graph having n nodes and m edges is a tree having n nodes and n-1 edges and all nodes are reachable from each other44
+
+MST is the tree having the most minimum edge weights present  

@@ -1,0 +1,8 @@
+The AND Operator only results true when both operands are True unless it reults false
+The OR Operator only results false when both operands are False unless it results True
+The XOR operands produces 1 as output only if there are odd number of ones else produce 0 if there are even number of ones. XOR of same numbers is 0 and XOR with zero produces the same number
+
+** REmember the fact that if there is a number num and its predecessor num-1 then there bit representation will look like:
+num-1 will have the first set bit of num as 0 and all bits after it as 1
+for example 16 = 10000   then 15 = 01111
+in general , if num = 1010100 then num-1 will be num-1 = 1010011

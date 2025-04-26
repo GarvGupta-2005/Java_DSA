@@ -1,0 +1,2 @@
+Always go from Brute Force -> Optimal approach 
+This will make the interviewer beileve that you have not crammed the solution but found it through logical thinking
