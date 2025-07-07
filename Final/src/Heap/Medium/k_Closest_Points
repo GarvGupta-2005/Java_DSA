@@ -1,0 +1,31 @@
+//Whenever we have to find k closest or k - smallest use max heap 
+//Other wise use min heap whenever we have 
+
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        // Max-heap: Compare by distance from origin in descending order
+        PriorityQueue<int[]> pq = new PriorityQueue<>(
+            (a, b) -> distance(b) - distance(a) // max-heap based on distance
+        );
+
+        for (int[] point : points) {
+            pq.offer(point);
+            if (pq.size() > k) {
+                pq.poll(); // remove farthest point if size exceeds k
+            }
+        }
+
+        // Extract the k closest points
+        int[][] result = new int[k][];
+        for (int i = 0; i < k; i++) {
+            result[i] = pq.poll();
+        }
+
+        return result;
+    }
+
+    // Helper method to compute squared distance to avoid using sqrt
+    private int distance(int[] point) {
+        return point[0] * point[0] + point[1] * point[1];
+    }
+}
