@@ -5,7 +5,7 @@ import java.util.*;
 
 class Solution {
 
-    //This is an opriized DFS code where we just see at each level if the size of arraylist is same as level then we add the value and the priority is given to right side 
+    //This is an optimized DFS code where we just see at each level if the size of arraylist is same as level then we add the value and the priority is given to right side 
 
     private void helper(TreeNode root,int level,List<Integer> ans){
         if(root == null)return ;
