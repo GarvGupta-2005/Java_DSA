@@ -2,6 +2,28 @@ package Trees.Medium;
 
 import java.util.*;
 
+
+class Solution {
+
+    //This is an opriized DFS code where we just see at each level if the size of arraylist is same as level then we add the value and the priority is given to right side 
+
+    private void helper(TreeNode root,int level,List<Integer> ans){
+        if(root == null)return ;
+
+        if(ans.size() == level){
+            ans.add(root.val);
+        }
+
+        helper(root.right,level+1,ans);
+        helper(root.left,level+1,ans);
+    }
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        helper(root,0,ans);
+        return ans;
+    }
+}
+
 public class RightView {
     //The key solution is BFS or levelorder traversal
     //At each level we will add all the values on that level and in the final answer
