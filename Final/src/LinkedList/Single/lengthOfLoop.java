@@ -74,3 +74,43 @@ static int lengthOfLoop2(Node head) {
 }
 
 }
+
+
+//This is from July-26 2026
+/*
+class Node {
+    int data;
+    Node next;
+
+    Node(int x) {
+        data = x;
+        next = null;
+    }
+}
+*/
+
+class Solution {
+    public int lengthOfLoop(Node head) {
+        // code here
+        Node fast = head;
+        Node slow = head;
+        int ans = 0;
+
+        while(fast!= null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast){
+                //The Point of their intersection has been met 
+                slow = slow.next;
+                ans = 1;
+                while(fast != slow){
+                    slow = slow.next;
+                    ans++;
+                }
+                return ans;
+            }
+        }
+        return 0;
+    }
+}
