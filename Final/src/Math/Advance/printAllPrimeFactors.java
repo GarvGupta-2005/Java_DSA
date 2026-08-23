@@ -66,6 +66,10 @@ public class printAllPrimeFactors {
                 }
         }
     }
+
+        if(n>1){
+            ans.add(n);//n itslef is a prime number 
+        }
     return ans;
 }
 //This function is based on the native division method to find the factors of a number 
