@@ -1,46 +1,53 @@
-package Stack_Queue.Postfix_Prefix_Infix;
+class Solution {
+    
+ 
 
-import java.util.*;
+       private static int priority(char c) {
+           if (c == '^') {
+               return 3;
+           } else if (c == '*' || c == '/') {
+               return 2;
+           } else if (c == '+' || c == '-') {
+               return 1;
+           } else {
+               return 0;
+           }
+       }
 
-public class infixToPostfix {
-    public static int priority(char s){
-        if(s == '^'){
-            return 3;
-        }
-        else if(s == '*' || s == '/'){
-            return 2;
-        }
-        else if(s == '+' || s == '-'){
-            return 1;
-        }else{
-            return -1;
-        }
-    }
-    public static String infiToPost(String s){
-        Stack<Character> st = new Stack<>();
-        String ans = "";
-        int i = 0;
-        while(i<s.length()){
-            if((s.charAt(i)>='A' && s.charAt(i)<='Z')||(s.charAt(i)>='a' && s.charAt(i)<='z')||(s.charAt(i)>='0' && s.charAt(i)<='9')){
-                ans = ans + s.charAt(i);
-            }
-            else if(s.charAt(i)=='('){
-                st.push('(');
-            }else if(s.charAt(i)==')'){
-                while(st.isEmpty() && st.peek()!='('){
-                    ans = ans + st.pop();
-                }
-                st.pop();
-            }else{
-                while(st.isEmpty() && priority(s.charAt(i))<=priority(st.peek())){
-                    ans = ans + st.pop();
-                }
-            }
-            i++;
-        }
-        while(!st.isEmpty()){
-            ans = ans + st.pop();
-        }
-        return ans;
-    }
+       public static String infixToPostfix(String s) {
+           StringBuilder ans = new StringBuilder();
+           Stack<Character> st = new Stack<>();
+
+           for (int i = 0; i < s.length(); i++) {
+               char cur = s.charAt(i);
+
+               // 1. Corrected operand condition
+               if (Character.isLetterOrDigit(cur)) {
+                   ans.append(cur);
+               } else if (cur == '(') {
+                   st.push(cur);
+               } else if (cur == ')') {
+                   while (!st.isEmpty() && st.peek() != '(') {
+                       ans.append(st.pop());
+                   }
+                   if (!st.isEmpty()) st.pop(); // Remove '('
+               } else { // Operator (+, -, *, /, ^)
+                   // 2 & 3. Handle precedence and associativity
+                   while (!st.isEmpty() && (
+                       (cur != '^' && priority(st.peek()) >= priority(cur)) ||
+                       (cur == '^' && priority(st.peek()) > priority(cur))
+                   )) {
+                       ans.append(st.pop());
+                   }
+                   st.push(cur);
+               }
+           }
+
+           while (!st.isEmpty()) {
+               ans.append(st.pop());
+           }
+
+           return ans.toString();
+       }
+   
 }
