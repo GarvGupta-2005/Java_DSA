@@ -40,3 +40,62 @@ class stack {
    }
 }
 
+class myStack {
+    
+    private int current; //Represents the place where the next element is going to be pushed
+    private int [] stack;
+
+    public myStack(int n) {
+        // Define Data Structures
+        this.stack = new int[n];
+        this.current = 0;
+    }
+
+    public boolean isEmpty() {
+        // check if the stack is empty
+        if(this.current == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isFull() {
+        // check if the stack is full
+        if(this.current == this.stack.length){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void push(int x) {
+        // Inserts x at the top of the stack
+         if(this.current == this.stack.length){
+            return;
+        }
+        
+        this.stack[this.current] = x;
+        this.current = this.current + 1;
+        
+    }
+
+    public void pop() {
+        // Removes an element from the top of the stack
+        if(this.current == 0){
+            return;
+        }
+        
+        this.current = this.current - 1;
+    }
+
+    public int peek() {
+        // Returns the top element of the stack
+        if(this.current == 0){
+            //That means it still empty
+            return -1;
+        }
+        
+        return this.stack[this.current - 1];
+    }
+}
