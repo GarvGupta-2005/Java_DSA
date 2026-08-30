@@ -148,3 +148,81 @@ public class infixToPrefix {
   }
 }
 
+
+
+class Solution {
+
+    private static boolean isOperand(char c) {
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
+    }
+
+    private static int priority(char c) {
+        if (c == '^') return 3;
+        if (c == '*' || c == '/') return 2;
+        if (c == '+' || c == '-') return 1;
+        return 0;
+    }
+
+    private static String reverse(String s) {
+        char[] sarr = s.toCharArray();
+        int i = 0, j = sarr.length - 1;
+
+        while (i <= j) {
+            char temp = sarr[i];
+            sarr[i] = sarr[j];
+            sarr[j] = temp;
+            i++;
+            j--;
+        }
+
+        for (i = 0; i < sarr.length; i++) {
+            if (sarr[i] == '(') {
+                sarr[i] = ')';
+            } else if (sarr[i] == ')') {
+                sarr[i] = '('; // Fixed swap logic
+            }
+        }
+
+        return new String(sarr);
+    }
+
+    static String infixToPrefix(String s) {
+        s = reverse(s);
+        int n = s.length();
+
+        Stack<Character> st = new Stack<>();
+        int i = 0; // Fixed index initialization
+
+        StringBuilder sb = new StringBuilder();
+
+        while (i < n) {
+            char cur = s.charAt(i); // Fixed variable declaration
+
+            if (isOperand(cur)) {
+                sb.append(cur);
+            } else if (cur == '(') {
+                st.push(cur);
+            } else if (cur == ')') {
+                while (!st.isEmpty() && st.peek() != '(') {
+                    sb.append(st.pop());
+                }
+                if (!st.isEmpty()) st.pop();
+            } else {
+                while (!st.isEmpty() && (
+                    (cur == '^' && priority(st.peek()) >= priority(cur)) ||
+                    (cur != '^' && priority(st.peek()) > priority(cur))
+                )) {
+                    sb.append(st.pop());
+                }
+                st.push(cur);
+            }
+            i++;
+        }
+
+        while (!st.isEmpty()) {
+            sb.append(st.pop());
+        }
+
+        return reverse(sb.toString());
+    }
+}
