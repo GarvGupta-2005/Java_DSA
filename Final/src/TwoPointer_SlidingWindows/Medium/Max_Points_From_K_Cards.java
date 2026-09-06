@@ -23,4 +23,39 @@ public class Max_Points_From_K_Cards {
         }
         return maxSum;
     }
+
+    //Approach 2 
+    public int maxScore2(int[] cardPoints, int k) {
+        //Given we have to find the maxScore with k cards from any side
+        //Visualize that if we take K cards from any end, we will leave an contigous part of size n-k 
+        //What if we find that window of n-k size which will reduce the minimum score, 
+        //So our algo will be to find the window which has the min reduction 
+
+        int n = cardPoints.length;
+        k = n-k;
+        int ans = 0;
+
+        int total = 0;
+        for(int x : cardPoints){
+            total += x;
+        }
+
+        int current = 0;
+
+        //first window 
+        for(int i = 0;i<k;i++){
+            current += cardPoints[i];
+        }
+
+        ans = Math.max(ans,total-current);
+
+        int last = 0;
+        for(int i = k;i<n;i++){
+            current = current + cardPoints[i] - cardPoints[last];
+            ans = Math.max(ans,total-current);
+            last++;
+        }
+
+        return ans;
+    }
 }
