@@ -3,22 +3,22 @@ package Heap.Medium;
 import java.util.PriorityQueue;
 
 public class kthSmallest {
-    public static int K_Smallest(int[] arr, int k) {
-        // Your code here
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int i = 0;i<arr.length;i++){
-            pq.add(arr[i]);
-        }
-        int ans = -1;
-        if(k == 1){
-            return pq.remove();
-        }
-        while(k>1){
-            pq.remove();
-            k--;
+     public int kthSmallest(int[] arr, int k) {
+        // Code here
+
+         //We will store the K smallest elements only in the heap.
+         //After that the largest among those k smallest elements will be stored at the root and thus we will return ity
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->b-a);
         
+        for(int x: arr){
+            pq.add(x);
+            
+            while(pq.size() > k){
+                pq.poll();
+            }
+            
         }
-        return pq.remove();
         
+        return pq.poll();
     }
 }
