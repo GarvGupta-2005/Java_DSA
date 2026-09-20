@@ -4,32 +4,21 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class kthLargest {
+//We will use a min heap here to store only the k largest elements of the array
+    // Once the heap only contains the largest k elements among the array we can return the root of the heap/
+    // as among those k largest  elements, the smallest will be at the root which is also the kth largest in the entire array 
+    
     public int findKthLargest(int[] nums, int k) {
-        Comparator<Integer> cmp = new Comparator<Integer>() {
-            public int compare(Integer i , Integer j){
-                if(i > j){
-                    return -1; // to not sort 
-                }else{
-                    return 1; // to sort
-                }
-            }
-        };
-        PriorityQueue<Integer> pq = new PriorityQueue<>(cmp);
-        int n = nums.length;
-        for(int i = 0;i<n;i++){
-            pq.add(nums[i]);
-        }
-        int ans = Integer.MIN_VALUE;
-        int count = 1;
-        while(pq.size()>0){
-            if(count == k){
-                ans = pq.poll();
-                break;
-            }
-            count++;
-            pq.poll();
-        }
-        return ans;
-    }
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
+        for(int x : nums){
+            pq.add(x);
+
+            while(pq.size() > k){
+                pq.poll();
+            }
+        }
+
+        return pq.poll();
+    }
 }
